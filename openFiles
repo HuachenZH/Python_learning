@@ -17,3 +17,14 @@ inp=fhand.read() # remark : inp is a str
 print(inp)
 
 
+# A simple code to open and read file :
+fname=input('Type file name :  ')
+try:
+    fhand=open(fname)
+except:
+    print('The file does not exist.')
+    quit()
+
+for line in fhand:
+    print(line)
+
