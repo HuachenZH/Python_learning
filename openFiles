@@ -1,0 +1,19 @@
+# To open files in Python :
+# fhand=open()
+# remark : the function open() creates a handle
+
+# open file
+fhand=open('data.txt')
+
+# Two methods to print the file in the console :
+# method 1, use for and read the handle line by line
+fhand=open('data.txt')
+for line in fhand:
+    print(line)
+	
+# method 2, use .read() to read the whole file :
+fhand=open('data.txt')
+inp=fhand.read() # remark : inp is a str
+print(inp)
+
+
