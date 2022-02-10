@@ -49,9 +49,26 @@ print('\n')
 print('You have in total ',len(out),'emails in mbox')
 
 
+"""
+Exercise 6
+Rewrite the program that prompts the user for a list of numbers and prints out the maximum and minimum of the numbers at the end when the user enters “done”. Write the program to store the numbers the user enters in a list and use the max() and min() functions to compute the maximum and minimum numbers after the loop completes.
+"""
+liste=[]
+inp=''
+while True:
+    inp=input('Please give a number -> ')
+    if inp=='Done' or inp=='done':
+        break
+    try:
+        inp=float(inp)
+        liste.append(inp)        
+    except:
+        print('NaN')
 
+print('Maximum: ',max(liste))
+print('Minimum: ',min(liste))
+print('Average: ',sum(liste)/len(liste))
 
-
-
-
+# Comment: the order in the while true is important, better to put the if break at the beginniing
+# and .append() should be wrapped by try, if not, when user input a string, the string will also be added into the list
 
