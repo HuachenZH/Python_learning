@@ -36,8 +36,24 @@ for i in sorted(liste):
 
 
 
-
-
+# =============================================================================
+# get the top 10 most commun words in a text
+# =============================================================================
+bag=dict()
+fhand=open('computer.txt')
+# put the words and their counts into a dictionary
+for line in fhand:
+    for word in line.split():
+        bag[word]=bag.get(word,0)+1
+        
+# make a list, with tuples as elements, first count, then word
+# (so that count becomes key, word becomes value)
+liste=list()
+for word,count in bag.items():
+    liste.append((count,word))
+liste=sorted(liste,reverse=True) # sort the list
+for i in range(10): # print the top 10
+    print(liste[i])
 
 
 
