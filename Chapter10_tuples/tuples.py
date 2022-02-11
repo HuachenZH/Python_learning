@@ -54,12 +54,21 @@ for word,count in bag.items():
 liste=sorted(liste,reverse=True) # sort the list
 for i in range(10): # print the top 10
     print(liste[i])
+print('\n')
+for i in liste[:10]: # another way to print the top 10
+    print(i)
+print('\n')
 
+for value,key in liste[:10]: # a third way to print the top 10
+    print(key,'\t',value)  
+# remark about the double iteration :----------------!!!!!!!!!!!!!
+# before with dictionary, double iteration can be executed when: for key,value in dictionary.items()
+# and dictionary.items() returns a list of tuples, which is the same with the code above (liste is also a list of tuples)
 
-
-
-
-
+# even a triple iteration can work :
+tmplist=[(1,2,3),(3,5,1)]
+for a,b,c in tmplist:
+    print(a,b,c)
 
 
 
