@@ -101,8 +101,9 @@ print(res)
 
 # =============================================================================
 # Exercise 3:
-# count how many messages come from each mail address
+# count how many messages come from each mail address, and find who sends the most of the emails
 # =============================================================================
+# count messages -----------------------------
 fhand=open('mbox-short.txt')
 res={}
 for line in fhand:
@@ -113,7 +114,22 @@ for line in fhand:
 # print the result
 for key,value in res.items():
     print(key,'\t', value)
-
+# find the max ---------------------------
+maxKey=None
+maxValue=0
+# two methods to find the max, method 1:
+for key in res:
+    if res[key]>maxValue:
+        maxValue=res[key]
+        maxKey=key
+# method 2
+for key,value in res.items():
+    if value>maxValue:
+        maxValue=value
+        maxKey=key
+print('\n')
+print('The maximum is :')
+print(maxKey,maxValue)
 
 
 
