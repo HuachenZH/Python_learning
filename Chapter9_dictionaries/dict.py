@@ -83,6 +83,54 @@ for word,count in hist.items():
         print(word,'\t',count)
 
 
+# =============================================================================
+# Exercise 2: 
+# Write a program that categorizes each mail message by which day of the week the commit was done. To do this look for lines that start with “From”, then look for the third word and keep a running count of each of the days of the week. At the end of the program print out the contents of your dictionary (order does not matter).
+# =============================================================================
+# count which day of the week the email is send
+fhand=open('mbox-short.txt')
+day=None
+res=dict()
+for line in fhand:
+    if line.startswith('From '):
+        day=line.split('@')[1].split()[1] # or just .split()[2]
+        res[day]=res.get(day,0)+1
+print(res)
+
+
+
+# =============================================================================
+# Exercise 3:
+# count how many messages come from each mail address
+# =============================================================================
+fhand=open('mbox-short.txt')
+res={}
+for line in fhand:
+    if line.startswith('From '):
+      address=line.split()[1]
+      # put the address into the dictionary
+      res[address]=res.get(address,0)+1
+# print the result
+for key,value in res.items():
+    print(key,'\t', value)
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+
+
+
+
 
 
 
