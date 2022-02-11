@@ -73,6 +73,25 @@ for a,b,c in tmplist:
 
 
 
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# incredible syntax, for in parenthese of a function
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+c={'a':10,'b':1,'e':22}
+print(sorted([(v,k) for k,v in c.items()]))     # output: [(1, 'b'), (10, 'a'), (22, 'e')]
+print([(i) for i in c])                         # output: ['a', 'b', 'e']
+print([(v,k) for k,v in c.items()])             # output: [(10, 'a'), (1, 'b'), (22, 'e')]
+
+# attention, the [ ] is important, if not, there won't be traceback but the output is not correct
+
+
+
+
+
+
+
+
+
+
 
 
 
