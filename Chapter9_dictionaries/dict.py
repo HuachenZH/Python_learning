@@ -43,4 +43,16 @@ print(res)
 print(res.items())
     
     
-    
+# =============================================================================
+# two iterations (a Python only feature)
+# =============================================================================
+prices={'Banana':4,'Pineapple':3,'Orange':1.5}
+for fruit,price in prices.items():
+    print(fruit,' ',price)
+
+
+
+
+
+
+
