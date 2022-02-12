@@ -120,6 +120,8 @@ print(candy[0][0])
 # the output is : (5, 'cwen@iupui.edu')
 # candy is a list of size of 1 ! it means that in candy, there is only one element, and this element is another list of 11 element
 # in other word, we need the first element of the first element, so that's why there's [0][0]
+# list in a list. There is one way to unlist it:
+candy=candy[0]
 
 # method 3: create a list with only one element, which is the most sender
 candy.append(sorted([(v,k)for k,v in bag.items()],reverse=True)[0])
@@ -128,13 +130,72 @@ print(candy)
 
 
 
+# =============================================================================
+# Exercise 2
+# find the distribution of hours of each mail
+# =============================================================================
+fhand=open('mbox-short.txt')
+hour=None
+bag=dict()
+# create the dictionary
+for line in fhand:
+    if line.startswith('From '):
+        hour=line.split()[5].split(':')[0]
+        bag[hour]=bag.get(hour,0)+1
+# make it a list
+sugar=list()
+sugar.append(sorted([(k,v)for k,v in bag.items()])) # sugar is a list of one element, which is another list of 12 tuples
+sugar=sugar[0] # to unlist one time, so sugar becomes a list of 12 tuples
+# print in a python-one-liner way:
+print([(k) for k in sugar])  # the output is : [('04', 3), ('06', 1), ('07', 1), ('09', 2), ('10', 3), ('11', 6), ('14', 1), ('15', 2), ('16', 4), ('17', 2), ('18', 1), ('19', 1)]
+# print in a normal way:
+for k in sugar:
+    print(k)
+# the output is:
+# ('04', 3)
+# ('06', 1)
+# ('07', 1)
+# ('09', 2)
+# ('10', 3)
+# ('11', 6)
+# ('14', 1)
+# ('15', 2)
+# ('16', 4)
+# ('17', 2)
+# ('18', 1)
+# ('19', 1)
 
 
 
+# =============================================================================
+# Exercise 3
+# Read a text file in all lower case, count how many times each letter a-z appears. Do not count .!() etc
+# =============================================================================
+fhand=open('intro.txt')
+bag=dict()
+# creat a dictionary with all the letters inside
+for line in fhand:
+    line=line.lower()
+    line=line.split()
+    for word in line:
+        for i in range(len(word)):
+            bag[word[i]]=bag.get(word[i],0)+1
+# then i found there is still special characters like ! ( ) ' inside, so i need to find a way to clear them
+            
+# for k in bag:
+#     if k<'z':
+#         del bag[k]  # in this way, traceback will say that the dictionary changes size during the iteration. Unlike Matlab, this is not acceptable in Python 
+bag2=dict() # so i need to create a new dictionary
+for k in bag:
+    if k<='z' and k>='a':
+        bag2[k]=bag[k]
 
-
-
-
+# print the result, in alphabetic order. So need to make a list to sort it
+sugar=list()
+sugar.append(sorted([(k,v)for k,v in bag2.items()]))
+sugar=sugar[0]
+for k,v in sugar:
+    print(k,'\t',v)
 
 
 
