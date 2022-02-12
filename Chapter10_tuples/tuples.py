@@ -89,6 +89,42 @@ print([(v,k) for k,v in c.items()])                             # output: [(10, 
 
 
 
+# =============================================================================
+# Exercise 1
+# With mbox-short.txt, find the person who send the most of the emails
+# =============================================================================
+fhand=open('mbox-short.txt')
+bag=dict()
+tmp=None
+# create the dictionary
+for line in fhand:
+    if line.startswith('From '):
+        tmp=line.split()[1]
+        bag[tmp]=bag.get(tmp,0)+1        
+candy=list() # to make a list, we can sort a list but not a dictionary
+
+# the correct answer is, cwen@iupui.edu has sent emails the most, which is 5 times
+# however i found three ways to get the answer. 
+
+# method 1, the most classic way
+for k,v in bag.items():
+    candy.append((v,k))
+candy=sorted(candy,reverse=True)
+print(candy[0])
+# output : (5, 'cwen@iupui.edu')
+# candy is a list of size of 11
+
+# method 2, create a list with all the senders sorted, then print the first element
+candy.append(sorted([(v,k)for k,v in bag.items()],reverse=True))
+print(candy[0][0])
+# the output is : (5, 'cwen@iupui.edu')
+# candy is a list of size of 1 ! it means that in candy, there is only one element, and this element is another list of 11 element
+# in other word, we need the first element of the first element, so that's why there's [0][0]
+
+# method 3: create a list with only one element, which is the most sender
+candy.append(sorted([(v,k)for k,v in bag.items()],reverse=True)[0])
+print(candy)
+# output : [(5, 'cwen@iupui.edu')] camparing to other two methods, there is [] in this output which others don't have
 
 
 
