@@ -6,6 +6,9 @@ mysock.connect(('data.pr4e.org', 80)) # make the connection. Now mysock is a tru
 cmd = 'GET http://data.pr4e.org/romeo.txt HTTP/1.0\r\n\r\n'.encode() # if we don't put .encode(), Python will say : a bytes-like object is required, not 'str'
 # in the terminal, we need bytes but not string. encode() permits to transform unicode (the string) into utf-8 (what the terminal can recognize=
 
+# after .encode(), lines are bytes
+# after .decode(), lines are string
+
 mysock.send(cmd)
 
 while True:
