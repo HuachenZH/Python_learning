@@ -44,4 +44,12 @@ for line in fhand:
         print(tmp)
 
 
+#  http://www.dr-chuck.com/page1.htm
 
+# =============================================================================
+# By using regular expression, get the host name dr-chuck.com
+# =============================================================================
+import re
+tmp='http://www.dr-chuck.com/page1.htm'
+
+out=re.findall('\.(\S+)/',tmp)
