@@ -38,7 +38,14 @@ def arithmetic_arranger(x):
             int(i[2])
         except:
             print('Error: Numbers must only contain digits.')
+    
+    # check the operands: maximum four digits
+        for ii in i:
+            if len(ii)>4:
+                print('Error: Numbers cannot be more than four digits.')
+                return
             
+    # check ends, conversion starts.
 
 #-------------------main---------------------------
 
@@ -47,4 +54,8 @@ x1=["32 + 698", "3801 - 2", "45 + 43", "123 + 49","1 + 1","2 + 3"]
 x2=["32 + 698", "3801 * 2", "45 + 43", "123 + 49"]
 x3=["32 + 698", "3801 + 2a", "45 + 43", "123 + 49"]
 x23=["32 + 698", "3801 * 2a", "45 + 43", "123 + 49"]
-arithmetic_arranger(x23)
+x4=["32 + 698", "380121 + 2", "45 + 43", "123 + 49"]
+arithmetic_arranger(x4)
+
+# storming... possible to combine all the test into one for loop?
+
