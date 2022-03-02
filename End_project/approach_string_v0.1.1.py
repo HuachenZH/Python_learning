@@ -60,3 +60,4 @@ print(out)
 
 # for the next version:
   # this version is half-completed, in the input expression "nbr1 + nbr2", the code works only if nbr1 is bigger than nbr2
+  # and it works only when the operator is +
