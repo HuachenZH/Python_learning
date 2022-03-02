@@ -11,3 +11,10 @@ This is a temporary script file.
 # the difficulty is to print them in a vertical way.
 
 # So test the feasibility of this approach.
+
+# I've tried, this does not work
+
+# there is a smart way is to create a data frame, then print the whole data frame directly.
+# however with dataframe, we can not configure detail of print (maybe we can, but it is no longer objectif of this project)
+
+# so approach1 abandonned
