@@ -173,7 +173,9 @@ print(check)
 
 
 # for next version:
-	# review all the codes
+	# project finished
+	
+# next step: learn how to use github. Now i use it like google doc, what a shame
 
 
 
