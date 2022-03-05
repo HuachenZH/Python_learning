@@ -1,0 +1,4 @@
+Step1: calculate the minutes first
+Step2: then calculate hour, hour depends on minute
+Step3: then calculate period (AM/PM), period depends on hour
+Step4: at the end, calculate day
