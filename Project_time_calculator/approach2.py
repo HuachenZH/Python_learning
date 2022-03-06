@@ -4,6 +4,7 @@ Created on Sat Mar  5 19:51:54 2022
 
 @author: e^(j·2pi)
 """
+# this is just a temporary script
 # try approach 2
 from math import floor
 
