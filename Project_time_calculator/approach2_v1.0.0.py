@@ -46,7 +46,7 @@ print('level_new_rel: ',level_new_rel)
 min_new_rel=level_new_rel%60
 print('min_new_rel: ',min_new_rel)
 # new hour:
-hour_new_rel=floor(level_new_rel/60)
+hour_new_rel=floor(level_new_rel/60)%12
 print('hour_new_rel: ',hour_new_rel)
 
 # new preiod:
