@@ -75,4 +75,13 @@ def add_time(start, duration,*startday): # * means optional
 
     print('\n')
 
+    if startday: # if startday exists    
+        listDay=['Monday','tuesday','Wednesday','Thursday','Friday','saturDay','Sunday']
+        index=listDay.index(*startday) # strange thing: if it's startday, there will be error ValueError: ('Wednesday',) is not in list. With *startday, no error
+        index=(index+xDaysLater)%7
+        out=str(hour_new_rel)+':'+tmp+' '+periodFlag_new\
+            +', '+listDay[index]\
+            +' ('+str(xDaysLater)+' days later)'
+    
+
     return out
