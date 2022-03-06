@@ -47,6 +47,8 @@ min_new_rel=level_new_rel%60
 print('min_new_rel: ',min_new_rel)
 # new hour:
 hour_new_rel=floor(level_new_rel/60)%12
+if hour_new_rel==0:
+	hour_new_rel=12
 print('hour_new_rel: ',hour_new_rel)
 
 # new preiod:
@@ -87,7 +89,7 @@ else:
 # for next version:
     # put the code in to time_calculator.py
 
-
+# ended with this script. Move on to time_calculator.py
 
 
 
