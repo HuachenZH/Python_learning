@@ -6,7 +6,7 @@ Created on Sat Mar  5 19:33:59 2022
 """
 from math import floor
 # add_time("11:06 PM", "2:02")
-def add_time(start, duration):
+def add_time(start, duration,*startday): # * means optional
     time=[int(i) for i in start.split(' ')[0].split(':') if i.isdigit()]
     periodFlag=start.split(' ')[1]
 
