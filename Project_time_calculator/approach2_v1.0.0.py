@@ -81,7 +81,11 @@ else:
     print(out)
 
 
-
+# what i've learnt in this verison:
+    # headache when there is too many variables
+    # there is always a way to optimize the logic and syntax
+# for next version:
+    # put the code in to time_calculator.py
 
 
 
