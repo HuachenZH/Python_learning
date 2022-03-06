@@ -61,27 +61,36 @@ def add_time(start, duration,*startday): # * means optional
     xDaysLater=floor(level_new_abs/1440)
     print('xDaysLater: ',xDaysLater)
     out=str(hour_new_rel)+':'+tmp+' '+periodFlag_new
-    if xDaysLater<1:    # date isn't changed, in the same day
-        # return
-        print(out)
-    elif xDaysLater==1: # exactly one day later
-        out+=' (next day)'
-        # return
-        print(out)
-    else:
-        out+=' ('+str(xDaysLater)+' days later)'
-        # return
-        print(out)
-
-    print('\n')
-
-    if startday: # if startday exists    
+    if not startday:
+        if xDaysLater<1:    # date isn't changed, in the same day
+            print(out)
+        elif xDaysLater==1: # exactly one day later
+            out+=' (next day)'
+            print(out)
+        else:
+            out+=' ('+str(xDaysLater)+' days later)'
+            print(out)
+    else: # if startday exists    
         listDay=['Monday','tuesday','Wednesday','Thursday','Friday','saturDay','Sunday']
-        index=listDay.index(*startday) # strange thing: if it's startday, there will be error ValueError: ('Wednesday',) is not in list. With *startday, no error
+        index=listDay.index(*startday)
         index=(index+xDaysLater)%7
-        out=str(hour_new_rel)+':'+tmp+' '+periodFlag_new\
-            +', '+listDay[index]\
-            +' ('+str(xDaysLater)+' days later)'
-    
-
+        # out=str(hour_new_rel)+':'+tmp+' '+periodFlag_new\
+        #     +', '+listDay[index]\
+        #     +' ('+str(xDaysLater)+' days later)'
+        if xDaysLater<1:    # date isn't changed, in the same day
+            out+=', '+listDay[index]    
+            print(out)
+        elif xDaysLater==1: # exactly one day later
+            out+=', '+listDay[index]    
+            out+=' (next day)'
+            print(out)
+        else: # two or more days later
+            out+=', '+listDay[index]
+            out+=' ('+str(xDaysLater)+' days later)'
+            print(out)
+    print('\n')
     return out
+
+# all tests ok
+# for the next project, try to code in github then run the code in spyder. It's better for the gestion of version
+
