@@ -11,6 +11,10 @@ class Category:
 		if description==None:
 			description=''
 		self.ledger.append({"amount":amount,"description":description})
-		
+    def get_balance(self):
+        out=0
+        for i in self.ledger:
+            out+= float(i["amount"])     
+        return out	
 		
 def create_spend_chart(categories):
