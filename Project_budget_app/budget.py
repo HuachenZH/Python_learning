@@ -15,6 +15,14 @@ class Category:
         out=0
         for i in self.ledger:
             out+= float(i["amount"])     
-        return out	
+        return out
+    def withdraw(self,amount,*description):
+        if self.get_balance()-amount<0:
+            return False
+        else:
+            #the amount should be stored in the ledger as a negative number
+            amount=-1*amount
+            self.deposit(amount,description)
+            return True
 		
 def create_spend_chart(categories):
