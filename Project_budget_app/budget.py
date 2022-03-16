@@ -30,7 +30,7 @@ class Category:
             amount=-1*amount
             self.ledger.append({"amount":amount,"description":description})
             return True
-	def transfer(self,amount,cat): # cat is the destinated category
+    def transfer(self,amount,cat): # cat is the destinated category
     # self will loss money, cat will get money
         if self.withdraw(amount,'Transfer to '+cat.name):
             # withdraw, already happened in if
