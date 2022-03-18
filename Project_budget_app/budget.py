@@ -9,6 +9,11 @@ class Category:
         for i in self.ledger:
             out+= float(i["amount"])     
         return out    
+    def check_funds(self,amount):
+        if amount>self.get_balance():
+            return False
+        else:
+            return True
     def deposit(self,amount, *description):
         if not (isinstance(amount, int) or isinstance(amount, float)):
             print('Amount must be a number')
