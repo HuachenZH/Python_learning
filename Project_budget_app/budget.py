@@ -4,6 +4,11 @@ class Category:
     def __init__(self,name): # constructor
         self.name=name
         self.ledger=[]
+    def get_balance(self):
+        out=0
+        for i in self.ledger:
+            out+= float(i["amount"])     
+        return out    
     def deposit(self,amount, *description):
         if not (isinstance(amount, int) or isinstance(amount, float)):
             print('Amount must be a number')
@@ -12,12 +17,7 @@ class Category:
             description=''
         else:
             description=description[0] # i don't know why but description is a tuple here. because of the *. Without *, it's a string
-        self.ledger.append({"amount":amount,"description":description})
-    def get_balance(self):
-        out=0
-        for i in self.ledger:
-            out+= float(i["amount"])     
-        return out
+        self.ledger.append({"amount":amount,"description":description}) 
     def withdraw(self,amount,*description):
         if self.get_balance()-amount<0:
             return False
