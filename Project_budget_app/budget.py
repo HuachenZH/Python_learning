@@ -4,7 +4,7 @@ Created on Fri Mar 11 19:29:10 2022
 
 @author: e^(j·2pi)
 """
-
+import math
 
 class Category:
     ledger=[] #instance variable=attribut. It's a list  
@@ -91,10 +91,10 @@ class Category:
         bool
 
         '''
-        if self.get_balance()-amount<0:
+        if not self.check_funds(amount): # not enough funds, withdraw wont be taken place
             return False
-        else:
-            if description==(): 
+        else: # enough fund. Withdraw will be taken place
+            if description==(): # classic tuple stuff of *description
                 description=''
             else:
                 description=description[0]
@@ -122,13 +122,38 @@ class Category:
             False if the transfer hasent taken place
         '''
         # self will loss money, cat will get money
-        if self.withdraw(amount,'Transfer to '+cat.name):
-            # withdraw, already happened in if
-            # deposit
+        if not self.check_funds(amount): # if not enough money, nothing happens, return false
+            return False
+        else: # if enough money, the transfer will be taken place
+            # those who lose money, withdraw
+            self.withdraw(amount,'Transfer to '+cat.name)
+            # those who receive money, deposit
             cat.deposit(amount,'Transfer from '+self.name)
             return True
-        else:
-            return False
+    def __str__(self):
+        out=''
+        n1=math.floor((30-len(self.name))/2) # number of * at the beginning
+        n2=30-len(self.name)-n1 # number of * at the end
+        for i in range(n1):
+            out+='*'
+        out+=self.name
+        for i in range(n2):
+            out+='*'
+        out+='\n' # first line finish, start the second line
+        for i in self.ledger: # i is a dictionary
+        # i is like {"amount":500,"description:":"depo"}
+            out+=i["description"][:23] # description, # extract string
+            num=format(i["amount"],'.2F') # the number at the right
+            for j in range(30-len(i["description"][:23])-len(num)): # whitespaces
+                out+=' '
+            out+=num
+            out+='\n'
+        # the final line displaying the total
+        out+='Total: '
+        # calculate the total
+        out+=format(self.get_balance(),'.2f')
+
+        return out
     
 
 
