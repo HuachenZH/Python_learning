@@ -48,4 +48,44 @@ class Hat:
                 self.contents.remove(out[i]) # remove the drawn ball from self.contents
         return out
     
+def dict2list(expected):
+    '''
+    Convert dict to list (like contents).
+    For ex, {'red':2,'blue':1} will be converted into ['red','red','blue']
+
+    Parameters
+    ----------
+    expected : TYPE dict
+        The dictionnary to be converted into list.
+
+    Returns
+    -------
+    out : TYPE list
+        The output list.
+
+    '''
+    out=list()
+    for k,v in expected.items():
+        for i in range(v):
+            out.append(k)
+    return out
+
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
+    m=0
+    for i in range(num_experiments):
+        hatcopy=copy.deepcopy(hat) # make a deep copy of hat. It must be deep copy. If it's a shallow copy, after the draw method, hatcopy will also be changed
+        ballsDrawn=hatcopy.draw(num_balls_drawn) # draw the balls, it's a list like ['blue', 'green']
+        expected=dict2list(expected_balls) # expected_balls is a dict like {'yellow': '3', 'blue': '2'}, now it's converted into [yellow yellow yellow blue blue]
+        # then we need to compare ballsDrawn and expected. 
+        # if expected is 'contained' in ballsDrawn
+        boolflag=True
+        for ball in expected:
+            if ball in ballsDrawn:
+                ballsDrawn.remove(ball) # remove the ball after counting
+            else:
+                boolflag=False
+                break
+        if boolflag: # if expected is contained in ballsDrawn
+            m+=1
+        
+    return m/num_experiments
