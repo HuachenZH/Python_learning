@@ -1,4 +1,4 @@
-import pandas as pd
+
 import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
@@ -9,11 +9,15 @@ from os import chdir
 chdir(r'D:\2018-2023\S8\Tronc commun\ADD\ADD_projet\nutrient')
 
 
-
-# import csv into pandas
+"""
+import csv into pandas
+"""
+import pandas as pd
 df=pd.read_csv('nndb_flat.csv')
 
-
+"""
+check highly correlated features
+"""
 def check_corr(df):
     '''
     Check highly correlated features of a dataframe
@@ -46,4 +50,33 @@ def check_corr(df):
     for tuples in listindex:
         listnut.append((matcorr.columns[tuples[0]],matcorr.columns[tuples[1]]))
     return listnut
+
+print("List of highly correlated features:")
+print(check_corr(df))
+print('\nIt s up to you to check which features should be removed :)\n\n') # in order to save some times, i'm not going to write a function which sorts the highly correlated features automatically. Although this sounds interesting
+
+
+"""
+remove highly correlated features and non-numeric features
+"""
+# we will remove all those who contains _USRDA
+df.drop(df.columns[df.columns.str.contains('_USRDA')].values, inplace=True, axis=1)
+#                   ^-------^ Index(['ID', 'FoodGroup', 'ShortDescrip', 'Descrip', 'CommonName', 'MfgName',.....dtype='object')   type:<class 'pandas.core.indexes.base.Index'>
+#                   ^-----------^   <pandas.core.strings.accessor.StringMethods object at 0x00000283F1A8DCA0>     type: <class 'pandas.core.strings.accessor.StringMethods'>
+#                   ^------------------------------^ [False False False False False False False False False False ...... True]    type: list
+#       ^------------------------------------------^ Index(['VitA_USRDA', 'VitB6_USRDA', 'VitB12_USRDA', 'VitC_USRDA',.... dtype='object')    type:<class 'pandas.core.indexes.base.Index'>
+#       ^--------------------------------------------------^  ['VitA_USRDA' 'VitB6_USRDA' .... 'Zinc_USRDA']    type: list
+
+# inplace=True : default False. If false, return a copy of dataframe. If true, replace de original dataframe
+# axis=1 : default 0. If 0, drop labels from index. If 1, drop labels from columns
+
+# set the column ID as index. Cf tictac.py
+df.set_index('ID', inplace=True)
+
+# find non numeric features
+df_desc=df.select_dtypes(include='object') # if use 'str': TypeError: string dtypes are not allowed, use 'object' instead
+df.drop(df.select_dtypes(include='object'),axis=1,inplace=True) # now df is 8618*23
+
+ax = df.hist(bins=50, xlabelsize=-1, ylabelsize=-1, figsize=(11,11))
+
 
