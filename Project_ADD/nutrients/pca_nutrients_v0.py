@@ -1,7 +1,5 @@
 
 import numpy as np
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 from os import chdir
 
@@ -9,15 +7,15 @@ from os import chdir
 chdir(r'D:\2018-2023\S8\Tronc commun\ADD\ADD_projet\nutrient')
 
 
-"""
-import csv into pandas
-"""
+
+#%% import csv into pandas
 import pandas as pd
+
 df=pd.read_csv('nndb_flat.csv')
 
-"""
-check highly correlated features
-"""
+
+#%% check highly correlated features
+
 def check_corr(df):
     '''
     Check highly correlated features of a dataframe
@@ -56,9 +54,9 @@ print(check_corr(df))
 print('\nIt s up to you to check which features should be removed :)\n\n') # in order to save some times, i'm not going to write a function which sorts the highly correlated features automatically. Although this sounds interesting
 
 
-"""
-remove highly correlated features and non-numeric features
-"""
+
+#%% remove highly correlated features and non-numeric features
+
 # we will remove all those who contains _USRDA
 df.drop(df.columns[df.columns.str.contains('_USRDA')].values, inplace=True, axis=1)
 #                   ^-------^ Index(['ID', 'FoodGroup', 'ShortDescrip', 'Descrip', 'CommonName', 'MfgName',.....dtype='object')   type:<class 'pandas.core.indexes.base.Index'>
@@ -77,6 +75,33 @@ df.set_index('ID', inplace=True)
 df_desc=df.select_dtypes(include='object') # if use 'str': TypeError: string dtypes are not allowed, use 'object' instead
 df.drop(df.select_dtypes(include='object'),axis=1,inplace=True) # now df is 8618*23
 
-ax = df.hist(bins=50, xlabelsize=-1, ylabelsize=-1, figsize=(11,11))
+# ax = df.hist(bins=50, xlabelsize=-1, ylabelsize=-1, figsize=(11,11))
+ax = df.hist(bins=50, figsize=(11,11))
+
+#%% standardize to mean=0, variance=1
+from sklearn.preprocessing import StandardScaler
+
+df_st=StandardScaler().fit_transform(df) # type of df_st: array of float64 8618*23
+print("mean of df_st: ",np.round(df_st.mean()))
+print("stdev of df_st: ", round(df_st.std()))
+print('\n\n')
+
+
+#%% implement PCA
+from sklearn.decomposition import PCA
+
+pca=PCA().fit_transform(df_st) # type : array of float64 8618*23
+# in machine learning, people normally use fit_transform() for training data, transform() for test data (also called validate data).
+# cf  https://towardsdatascience.com/what-and-why-behind-fit-transform-vs-transform-in-scikit-learn-78f915cf96fe
+
+
+
+
+
+
+
+
+
+
 
 
