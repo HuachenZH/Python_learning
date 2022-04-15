@@ -138,3 +138,28 @@ print(pcaNotes.sort_values(by='MATHS',ascending=False).loc[:,['NAME','MATHS']])
     # cf official doc of pandas
     # .sort_values: sort by the column named "NAME"
     # .loc: select the two columns named "NAME" and "MATHS".
+print('\n\n')
+#%% 3D scatterplot
+# scatter plot official example: https://matplotlib.org/stable/gallery/shapes_and_collections/scatter.html
+# official doc: https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.scatter.html#matplotlib.axes.Axes.scatter
+# 3D scatter plot example: https://matplotlib.org/stable/gallery/mplot3d/scatter3d.html#sphx-glr-gallery-mplot3d-scatter3d-py
+
+
+fig3=plt.figure(3)
+ax=fig3.add_subplot(projection='3d') # the variable name ax3 is already used before
+ax.scatter(dfNotes.loc[:,'MATHS'],dfNotes.loc[:,'PHYS'],dfNotes.loc[:,'EIA'])
+plt.show()
+
+#%% the pca plot of school (wheel+arrow)
+# seems i need to put NAME back into metadata
+pcaNotes.set_index('NAME',inplace=True)
+
+fig4, ax4=plt.subplots()
+ax4.scatter(pcaNotes['MATHS'],pcaNotes['PHYS'])
+ax4.axhline(y=0,color='r') # ax4 can be replaced by plt, but not fig4
+ax4.axvline(x=0,color='r')
+ax4.add_artist(plt.Circle((0,0),1,fill=False))
+plt.show()
+
+
+
