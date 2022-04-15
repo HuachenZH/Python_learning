@@ -24,6 +24,7 @@ dfNotes=dfNotes.set_index('NAME')
 from sklearn.preprocessing import StandardScaler
 
 dfNotes_st=StandardScaler().fit_transform(dfNotes) # type of dfNotes_st: array of float64 38*5
+print('#%% standardize to mean=0, variance=1')
 print("mean of df_st: ",np.round(dfNotes_st.mean()))
 print("stdev of df_st: ", round(dfNotes_st.std()))
 print('\n\n')
@@ -43,14 +44,16 @@ import matplotlib.pyplot as plt
 plt.figure(1) # line plot of value of eigenvector
 plt.plot(fit.explained_variance_ratio_) # something wierd: if i dont declare fit=PCA() before but to use PCA() instead, then this line will have error: AttributeError: 'PCA' object has no attribute 'explained_variance_ratio_'
 
-
+print('#%% implement PCA')
+print('Proportion of each eigenvector:')
 print(fit.explained_variance_ratio_) # percentage of importance of each eigenvector (=of each component)
 # make an accumulated one
 accumulated=fit.explained_variance_ratio_
 for i in range(1,len(fit.explained_variance_ratio_)): # i will be 1, 2, 3, 4. I mean, i, not me
 # range(start, stop[, step])
     accumulated[i]=accumulated[i-1]+accumulated[i]
-print(accumulated)
+print('Accumulated value:')
+print(accumulated,'\n\n')
 
 # eboulis, barplot (value of eigenvector) + lineplot (accumulated)
 # https://matplotlib.org/3.5.0/gallery/subplots_axes_and_figures/two_scales.html
@@ -72,8 +75,9 @@ ax2.tick_params(axis='y', labelcolor=color) #♣ change the color of y axis valu
 fig.tight_layout()  # otherwise the right y-label is slightly clipped # in fact nothing changes...
 plt.show() # the right y axis scale can still be optimized 
 
-#%% in this case (Notes), we will keep all the eigenvectors
-pcaNotes=pd.DataFrame(pcaNotes[:,:4], index=dfNotes.index,columns=dfNotes.columns[:4]) # .index is like rownames
+#%% eigen stuffs
+# in this case (Notes), we will keep all the eigenvectors
+pcaNotes=pd.DataFrame(pcaNotes[:,:5], index=dfNotes.index,columns=dfNotes.columns[:5]) # .index is like rownames
 # the type of pcaNotes is now DataFrame, before it was array of float64
     # pd.DataFrame: https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html
         # parameter index: set rownames
@@ -81,7 +85,7 @@ pcaNotes=pd.DataFrame(pcaNotes[:,:4], index=dfNotes.index,columns=dfNotes.column
 # something wierd about this line: with F5 it will run succesfully. With ctrl enter, there will be traceback: InvalidIndexError: (slice(None, None, None), slice(None, 4, None))
 
 # source code of data.world, In[39]
-# pca = pca.join(df_desc)  
+# pca = pca.join(df_desc)
     # pca is type DataFrame
     # df_desc: In[6]: df_desc = df.iloc[:, :6]
     # about .join(): https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.join.html
@@ -92,12 +96,45 @@ pcaNotes=pd.DataFrame(pcaNotes[:,:4], index=dfNotes.index,columns=dfNotes.column
         # remove rows or columns by specifying label names
 # pca.rename(columns={0:'c1',1:'c2',2:'c3',3:'c4',4:'c5'}, inplace=True)
 
+print('#%% eigen stuffs')
+print(np.round(pcaNotes.corr(),5))
+print('we see that the five vectors are orthogonal\n\n')
+# pcaNotes.corr()
 
-# np.round(pcaNotes.corr(),5)
-pcaNotes.corr()
+#%% Try to interpret the components
+# From In[17] ~
 
+vects=fit.components_[:5] #array of float64, 5*5
+# the varaible fit is type decomposition._pca.PCA, a PCA object. Official doc: https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html#
+    # in the doc, go to section "Attributes:".
+    # components_: principal axes in feature space, representing the directions of maximum variance in the data.
+        # equivalently, this equals to the right singular vectors of the centered input data, parallel to its eigenvectors.
+print('#%% Try to interpret the components')
+print('Components: (=principal axes = parallel to eigenvector')
+print(vects,"\n")
 
+# first component
+one=pd.Series(vects[0],index=dfNotes.columns) # type: Series, value: Series object of pandas.core.series module
+print('First component (one):')
+print(one)
+print('  ---\n  sorted:')
+print(one.sort_values(ascending=False)) # seems .sort_values does not change the order of one
+print('  ---\nStudents that are good at ...nothing?\n')
 
+# second component
+two=pd.Series(vects[1],index=dfNotes.columns)
+print('Second component (two):')
+print(two)
+print('  ---\n  sorted:')
+print(two.sort_values(ascending=False)) # seems .sort_values does not change the order of one
+print('  ---\nStudents that are good at MECA and MATHS, weak at LSHO')
+print('\n\n')
 
-
-
+#%% which instances (student, food groups...) are highest in each component
+# i need to put metadata back into dataframe
+print('#%% which instances (student, food groups...) are highest in each component')
+pcaNotes.reset_index(inplace=True)
+print(pcaNotes.sort_values(by='MATHS',ascending=False).loc[:,['NAME','MATHS']])
+    # cf official doc of pandas
+    # .sort_values: sort by the column named "NAME"
+    # .loc: select the two columns named "NAME" and "MATHS".
