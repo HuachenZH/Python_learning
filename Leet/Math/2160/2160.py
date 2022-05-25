@@ -1,9 +1,3 @@
-# paths:
-    # get the four digits
-    # combination
-    # find the minimum
-
-
 class Solution:
     def minimumSum(self, num: int) -> int:
         # get the four digits
@@ -13,9 +7,19 @@ class Solution:
         digit4=int(num%10000/1000)
         
         # combination
-        return [digit1, digit2, digit3, digit4]
-    
+        # as the expected output is only the min sum, no need to get all the combinations. Only get the pair which can give the min sum
+
+        # put the four digits in a list and sort them
+        digitList= [digit1, digit2, digit3, digit4]
+        digitList.sort()
+
+        # the two smallest digits will be on the ten's digit and unit's digit
+
+
+
+        return digitList
+
 
 
 sol=Solution()
-sol.minimumSum(2887)
+print(sol.minimumSum(2987))
