@@ -10,16 +10,17 @@ class Solution:
         # as the expected output is only the min sum, no need to get all the combinations. Only get the pair which can give the min sum
 
         # put the four digits in a list and sort them
-        digitList= [digit1, digit2, digit3, digit4]
-        digitList.sort()
+        digitList= [digit1, digit2, digit3, digit4] 
+        digitList.sort() # ascending order
 
-        # the two smallest digits will be on the ten's digit and unit's digit
+        # the two smallest digits will be on the ten's digit
+        num1=10*digitList[0]+digitList[2]
+        num2=10*digitList[1]+digitList[3] 
 
 
-
-        return digitList
+        return num1+num2
 
 
 
 sol=Solution()
-print(sol.minimumSum(2987))
+print(sol.minimumSum(4009))
