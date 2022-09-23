@@ -198,4 +198,20 @@ for k,v in sugar:
     print(k,'\t',v)
 
 
+    
+# unpack tuples
+a,b,*c = 1,2,3,4,5,6
+# a will be 1
+# b will be 2
+# c will be [3,4,5,6]
+
+a,*b,c=1,2,3,4,5,6
+# a will be 1
+# b will be [2,3,4,5]
+# c will be 6
+
+
+
+
+
 
