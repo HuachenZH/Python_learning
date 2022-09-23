@@ -12,3 +12,13 @@ def rien():
 print(x) # gives 2
 rien() # gives 5
 print(x) # gives 5
+
+
+# ******************
+def fonction(p, *tuple, **dico):
+  print(p, tuple, dico)
+print(1,2,3,4 a=5, b=6)
+# 1    (2,3,4)      {'a':5, 'b':6}
+
+
+
